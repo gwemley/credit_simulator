@@ -9,8 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.example.constant.GeneralConstant.ErrorMsg.TENOR_RULE;
-import static org.example.constant.GeneralConstant.ErrorMsg.VEHICLE_YEAR_RULE;
+import static org.example.constant.GeneralConstant.ErrorMsg.*;
 import static org.example.constant.GeneralConstant.InterestRate.INTEREST_BIKE_RATE;
 import static org.example.constant.GeneralConstant.InterestRate.INTEREST_CAR_RATE;
 import static org.example.constant.GeneralConstant.VehicleCondition.*;
@@ -19,6 +18,7 @@ import static org.example.constant.GeneralConstant.VehicleType.*;
 import static org.example.constant.GeneralConstant.Tenor.*;
 
 public class LoanCalculator {
+    private static final BigDecimal maxAllowedAmount = BigDecimal.valueOf(1000000000);
 
     public List<String> calculateMonthlyInstallment(LoanDetail loanDetail) {
         int currentYear = LocalDate.now().getYear() - 1;
@@ -61,6 +61,10 @@ public class LoanCalculator {
 
         if (loanDetail.getDownPaymentAmount() < loanAmountWithPercentage) {
             throw new CreditSimulatorGeneralException(GeneralConstant.ErrorMsg.DOWN_PAYMENT_RULE);
+        }
+
+        if (BigDecimal.valueOf(loanDetail.getLoanAmount()).compareTo(maxAllowedAmount) > 0) {
+            throw new CreditSimulatorGeneralException(MAX_OF_LOAN);
         }
 
         Double loanAfterDownPayment = loanDetail.getLoanAmount() - loanDetail.getDownPaymentAmount();

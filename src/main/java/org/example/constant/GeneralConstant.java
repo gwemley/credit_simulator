@@ -6,6 +6,7 @@ public class GeneralConstant {
         public static final String VEHICLE_YEAR_RULE = "Tahun kendaraan baru tidak boleh kurang dari tahun sekarang ";
         public static final String TENOR_RULE = "Tenor harus antara 1 dan 6 tahun";
         public static final String DOWN_PAYMENT_RULE = "Jumlah DP tidak mencukupi untuk jenis kendaraan dan kondisi yang dipilih";
+        public static final String MAX_OF_LOAN = "Melebihi jumlah Maximal pinjaman";
     }
 
     public static class VehicleType {
